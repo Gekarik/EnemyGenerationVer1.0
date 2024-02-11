@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] GameObject _enemy;
+    [SerializeField] private Transform _enemy;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private Transform[] _wayPoints;
+    [SerializeField] private float _delay = 2.0f;
 
     private void Start()
     {
@@ -14,9 +15,11 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
+        var wait = new WaitForSeconds(_delay);
+
         while (true)
         {
-            yield return new WaitForSeconds(2f);
+            yield return wait;
 
             var spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
             var _wayPoint = _wayPoints[Random.Range(0, _wayPoints.Length)];
