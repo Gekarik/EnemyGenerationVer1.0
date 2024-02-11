@@ -21,11 +21,12 @@ public class Spawner : MonoBehaviour
         {
             yield return wait;
 
-            var spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-            var _wayPoint = _wayPoints[Random.Range(0, _wayPoints.Length)];
+            Transform spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
+            Transform wayPoint = _wayPoints[Random.Range(0, _wayPoints.Length)];
+            Vector3 direction = (wayPoint.position - spawnPoint.position).normalized;
             var enemy = Instantiate(_enemy, spawnPoint.position, Quaternion.identity);
 
-            enemy.GetComponent<Mover>().SetWaypoint(_wayPoint.position);
+            enemy.GetComponent<Mover>().SetWaypoint(direction, wayPoint.position);
         }
     }
 }
